@@ -9,7 +9,7 @@
 ## 0:00 - 0:20 | Hook & Introduction
 **[Show: Your face, enthusiastic]**
 
-> "Hey! I'm [Your Name], and I'm going to show you how I'd get 500 engineering students to register for NxtWave's free AI workshop — with just ₹2,000 and 7 days."
+> "Hey! I'm Siddu Siddartha Reddy, and I'm going to show you how I'd get 500 engineering students to register for NxtWave's free AI workshop — with just ₹2,000 and 7 days."
 
 > "The big insight? With this budget, you can't buy 500 registrations. You have to engineer them. Let me show you how."
 

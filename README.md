@@ -73,6 +73,6 @@ npx serve submission
 ---
 
 ## 👤 Candidate Info
-- **Candidate:** Bommu Sai Saran Goud
+- **Candidate:** Siddu Siddartha Reddy
 - **Role:** Growth Intern
 - **Company:** NxtWave

@@ -27,8 +27,9 @@
             </div>
             <div class="nav-links">
                 <a href="#about" class="nav-link">About</a>
+                <a href="#matcher" class="nav-link">AI Matcher ✨</a>
                 <a href="#learn" class="nav-link">What You'll Learn</a>
-                <a href="#testimonials" class="nav-link">Stories</a>
+                <a href="#growth-engine" class="nav-link">Growth Sandbox 🚀</a>
                 <a href="#register" class="nav-cta">Register Free →</a>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
@@ -38,8 +39,9 @@
         <!-- Mobile Menu -->
         <div class="mobile-menu" id="mobileMenu">
             <a href="#about" class="mobile-link">About</a>
+            <a href="#matcher" class="mobile-link">AI Project Matcher ✨</a>
             <a href="#learn" class="mobile-link">What You'll Learn</a>
-            <a href="#testimonials" class="mobile-link">Stories</a>
+            <a href="#growth-engine" class="mobile-link">Growth Sandbox 🚀</a>
             <a href="#register" class="mobile-link cta">Register Free →</a>
         </div>
     </nav>
@@ -178,6 +180,123 @@
                     <div class="problem-icon">💡</div>
                     <h3>What if you could change that in just 60 minutes?</h3>
                     <p>No fluff. No theory dumps. Build a real, working AI project that you can put on your resume TODAY.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive AI Placement Project Matcher Section -->
+    <section class="matcher-section" id="matcher">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Interactive Placement Tool</span>
+                <h2 class="section-title">Match Your Branch to a Real AI Project</h2>
+                <p class="section-desc">Worried this workshop is only for CS coders? Select your engineering branch and placement goal to see the exact 60-minute project you'll build—complete with an ATS-ready resume bullet point!</p>
+            </div>
+
+            <div class="matcher-card">
+                <div class="matcher-controls">
+                    <div class="control-group">
+                        <label class="control-label">1. Select Your Engineering Branch:</label>
+                        <div class="pill-grid" id="branchPills">
+                            <button type="button" class="matcher-pill active" data-branch="CSE">💻 CSE / IT</button>
+                            <button type="button" class="matcher-pill" data-branch="ECE">⚡ ECE / IoT</button>
+                            <button type="button" class="matcher-pill" data-branch="EEE">🔌 EEE / Electrical</button>
+                            <button type="button" class="matcher-pill" data-branch="ME">⚙️ Mechanical</button>
+                            <button type="button" class="matcher-pill" data-branch="CE">🏗️ Civil</button>
+                            <button type="button" class="matcher-pill" data-branch="AI/ML">🧠 AI & Data Science</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">2. Select Your Dream Placement Target:</label>
+                        <div class="pill-grid" id="rolePills">
+                            <button type="button" class="matcher-pill active" data-role="SWE">🚀 Software / AI Dev</button>
+                            <button type="button" class="matcher-pill" data-role="DATA">📊 Data / ML Analyst</button>
+                            <button type="button" class="matcher-pill" data-role="CORE">🛠️ Core & Embedded</button>
+                            <button type="button" class="matcher-pill" data-role="PROD">💡 Product & Tech Analyst</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-primary btn-glow btn-generate-project" id="generateProjectBtn">
+                    <span>⚡ Generate 60-Min AI Project & Resume Bullet</span>
+                </button>
+
+                <!-- Project Blueprint Result -->
+                <div class="matcher-result" id="matcherResult">
+                    <div class="result-header">
+                        <div>
+                            <div class="result-badges">
+                                <span class="badge-tag tag-cyan" id="projectBranchBadge">CSE / IT</span>
+                                <span class="badge-tag tag-purple" id="projectDurationBadge">⏱️ 60 Mins Live</span>
+                                <span class="badge-tag tag-green" id="projectLevelBadge">✅ Beginner Friendly</span>
+                            </div>
+                            <h3 class="project-title" id="projectTitle">Smart Campus Placement Chatbot with RAG & Gemini 1.5</h3>
+                        </div>
+                    </div>
+
+                    <!-- Pipeline Diagram -->
+                    <div class="pipeline-diagram">
+                        <div class="pipeline-node">
+                            <span class="node-icon">📄</span>
+                            <span class="node-title" id="nodeInput">Student Query / PDF</span>
+                            <span class="node-sub">Input Source</span>
+                        </div>
+                        <span class="pipeline-arrow">➔</span>
+                        <div class="pipeline-node">
+                            <span class="node-icon">🧠</span>
+                            <span class="node-title" id="nodeModel">Gemini 1.5 + FAISS</span>
+                            <span class="node-sub">AI & Vector Embeddings</span>
+                        </div>
+                        <span class="pipeline-arrow">➔</span>
+                        <div class="pipeline-node">
+                            <span class="node-icon">⚡</span>
+                            <span class="node-title" id="nodeFramework">Python + Streamlit</span>
+                            <span class="node-sub">Full-Stack App</span>
+                        </div>
+                        <span class="pipeline-arrow">➔</span>
+                        <div class="pipeline-node">
+                            <span class="node-icon">🚀</span>
+                            <span class="node-title" id="nodeDeploy">Live Web URL</span>
+                            <span class="node-sub">Shareable Demo</span>
+                        </div>
+                    </div>
+
+                    <!-- ATS Resume Bullet Container -->
+                    <div class="resume-bullet-container">
+                        <div class="resume-header">
+                            <span class="resume-label">📄 ATS Placement Resume Bullet (Google X-Y-Z Formula):</span>
+                            <button type="button" class="btn-copy-bullet" id="copyBulletBtn">📋 Copy Bullet</button>
+                        </div>
+                        <p class="resume-bullet-text" id="resumeBulletText">
+                            "Engineered and deployed a full-stack Generative AI query assistant using Python, Gemini 1.5 Flash, and Streamlit in under 60 minutes, enabling sub-200ms document question-answering with verifiable GitHub source code."
+                        </p>
+                    </div>
+
+                    <!-- Quick Code Scaffold -->
+                    <div class="code-snippet-box">
+                        <pre><code id="codeSnippetContent"># ⚡ 60-Minute Workshop Scaffold
+import google.generativeai as genai
+import streamlit as st
+
+st.set_page_config(page_title="AI Placement Assistant", page_icon="🤖")
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+model = genai.GenerativeModel("gemini-1.5-flash")
+
+user_input = st.text_input("Ask anything about placements or technical questions:")
+if user_input:
+    response = model.generate_content(user_input)
+    st.write(response.text)</code></pre>
+                    </div>
+
+                    <div class="matcher-cta-bar">
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            🎯 <strong>Zero prior coding required.</strong> We build, train, and deploy this project together line-by-line in the workshop.
+                        </p>
+                        <a href="#register" class="btn-primary btn-glow" id="matchRegisterCta">
+                            <span>Reserve Free Spot For This Project →</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -489,6 +608,229 @@
         </div>
     </section>
 
+    <!-- Growth Sandbox: Viral Loops, Ambassador Leaderboard & WhatsApp Flow -->
+    <section class="sandbox-section" id="growth-engine">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Growth Architecture Simulator</span>
+                <h2 class="section-title">The Viral Growth Engine in Action</h2>
+                <p class="section-desc">See how ₹2,000 generates 500+ registrations. Test the live referral tracking mechanics, inspect the Campus Ambassador leaderboard, and simulate our WhatsApp automation drip.</p>
+            </div>
+
+            <div class="sandbox-container">
+                <div class="sandbox-nav">
+                    <button type="button" class="sandbox-tab active" data-tab="tab-referral">
+                        <span>🔗</span>
+                        <span>Referral Tracker Simulator</span>
+                    </button>
+                    <button type="button" class="sandbox-tab" data-tab="tab-ambassador">
+                        <span>🏆</span>
+                        <span>Campus Ambassador Leaderboard</span>
+                    </button>
+                    <button type="button" class="sandbox-tab" data-tab="tab-whatsapp">
+                        <span>💬</span>
+                        <span>WhatsApp Drip & Invite Simulator</span>
+                    </button>
+                </div>
+
+                <!-- Panel 1: Live Referral Tracker -->
+                <div class="sandbox-panel active" id="tab-referral">
+                    <div class="tracker-box">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                            <div>
+                                <h3 style="font-size:1.15rem; color:#fff;">Live Referral Attribution Engine</h3>
+                                <p style="font-size:0.85rem; color:var(--text-secondary);">Test how student peer referrals trigger automated milestone unlocks.</p>
+                            </div>
+                            <span class="badge-tag tag-cyan">Viral Loop K-Factor: 1.25</span>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom:16px;">
+                            <label style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:6px; display:block;">Active Student Referral Code:</label>
+                            <div style="display:flex; gap:8px;">
+                                <input type="text" id="simReferralCode" class="referral-input" value="NW-SIDDU-89" readonly style="background:rgba(0,0,0,0.4); border:1px solid var(--border-color); color:var(--accent-cyan); font-weight:700; padding:10px 14px; border-radius:var(--radius-sm); width:100%;">
+                                <button type="button" class="btn-copy" id="simCopyBtn" onclick="copySimCode()">📋 Copy</button>
+                            </div>
+                        </div>
+
+                        <div class="referral-progress" style="margin:24px 0;">
+                            <div class="progress-header" style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                <span style="font-weight:600; font-size:0.9rem;">Milestone Progress:</span>
+                                <strong id="simCounterText" style="color:var(--accent-cyan);">0 / 3 Friends Registered</strong>
+                            </div>
+                            <div class="progress-bar" style="background:rgba(255,255,255,0.08); height:12px; border-radius:999px; overflow:hidden;">
+                                <div class="progress-fill" id="simProgressFill" style="width: 0%; height:100%; background:var(--gradient-glow); transition:width 0.4s ease;"></div>
+                            </div>
+                            <div class="progress-milestones" style="display:flex; justify-content:space-between; margin-top:14px;">
+                                <div class="milestone" id="simMilestone1" style="text-align:center; font-size:0.75rem; color:var(--text-muted);">
+                                    <span style="display:block; font-size:1.1rem; margin-bottom:2px;">🔓</span>
+                                    <span><strong>1 Friend</strong><br>Early Colab Access</span>
+                                </div>
+                                <div class="milestone" id="simMilestone2" style="text-align:center; font-size:0.75rem; color:var(--text-muted);">
+                                    <span style="display:block; font-size:1.1rem; margin-bottom:2px;">🔓</span>
+                                    <span><strong>2 Friends</strong><br>Interview Cheat Sheet</span>
+                                </div>
+                                <div class="milestone" id="simMilestone3" style="text-align:center; font-size:0.75rem; color:var(--text-muted);">
+                                    <span style="display:block; font-size:1.1rem; margin-bottom:2px;">🎁</span>
+                                    <span><strong>3 Friends</strong><br>Complete AI Toolkit</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="simulator-controls">
+                            <button type="button" class="btn-sim" id="btnSimPlusOne">
+                                <span>➕ Simulate +1 Friend Registered</span>
+                            </button>
+                            <button type="button" class="btn-sim" id="btnSimPlusTwo">
+                                <span>🚀 Simulate +2 Friends Registered</span>
+                            </button>
+                            <button type="button" class="btn-sim btn-sim-reset" id="btnSimReset">
+                                <span>🔄 Reset</span>
+                            </button>
+                        </div>
+
+                        <div style="margin-top:20px; text-align:center;">
+                            <button type="button" class="btn-secondary" id="btnViewToolkit" style="width:100%; justify-content:center;">
+                                <span>🎁 Inspect & Preview Exclusive AI Starter Toolkit</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 2: Campus Ambassador Leaderboard -->
+                <div class="sandbox-panel" id="tab-ambassador">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                        <div>
+                            <h3 style="font-size:1.15rem; color:#fff;">Live Campus Ambassador Leaderboard</h3>
+                            <p style="font-size:0.85rem; color:var(--text-secondary);">10 Campus Leads × ₹150 Data Grant (Total: ₹1,500) Driving 150+ Verified Signups.</p>
+                        </div>
+                        <span class="badge-tag tag-green">Target: 150 Registrations (30%)</span>
+                    </div>
+
+                    <div style="overflow-x:auto;">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Ambassador Lead</th>
+                                    <th>Institution</th>
+                                    <th>Branch</th>
+                                    <th>Verified Signups</th>
+                                    <th>Viral K-Factor</th>
+                                    <th>Incentive Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="rank-badge rank-1">1</span></td>
+                                    <td><strong>Siddharth K.</strong></td>
+                                    <td>JNTU Hyderabad</td>
+                                    <td>CSE (4th Yr)</td>
+                                    <td><strong style="color:var(--accent-cyan); font-size:1rem;">26</strong> / 20</td>
+                                    <td>1.45x</td>
+                                    <td><span class="badge-tag tag-green">₹150 Paid + NxtWave LOR 🎖️</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-2">2</span></td>
+                                    <td><strong>Priya Sharma</strong></td>
+                                    <td>VIT Vellore</td>
+                                    <td>ECE (4th Yr)</td>
+                                    <td><strong style="color:var(--accent-cyan); font-size:1rem;">22</strong> / 20</td>
+                                    <td>1.32x</td>
+                                    <td><span class="badge-tag tag-green">₹150 Paid + NxtWave LOR 🎖️</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-3">3</span></td>
+                                    <td><strong>Rahul Verma</strong></td>
+                                    <td>SRM Chennai</td>
+                                    <td>IT (4th Yr)</td>
+                                    <td><strong style="color:var(--accent-cyan); font-size:1rem;">19</strong> / 20</td>
+                                    <td>1.28x</td>
+                                    <td><span class="badge-tag tag-cyan">₹150 Eligible</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">4</span></td>
+                                    <td><strong>Ananya Reddy</strong></td>
+                                    <td>CBIT Hyderabad</td>
+                                    <td>AI & DS (4th Yr)</td>
+                                    <td><strong style="color:#fff;">18</strong> / 20</td>
+                                    <td>1.30x</td>
+                                    <td><span class="badge-tag tag-cyan">₹150 Eligible</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">5</span></td>
+                                    <td><strong>Karthik M.</strong></td>
+                                    <td>NIT Warangal</td>
+                                    <td>EEE (4th Yr)</td>
+                                    <td><strong style="color:#fff;">17</strong> / 20</td>
+                                    <td>1.15x</td>
+                                    <td><span class="badge-tag tag-cyan">₹150 Eligible</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">6</span></td>
+                                    <td><strong>Divya Nair</strong></td>
+                                    <td>DTU Delhi</td>
+                                    <td>CSE (4th Yr)</td>
+                                    <td><strong style="color:#fff;">15</strong> / 20</td>
+                                    <td>1.20x</td>
+                                    <td><span class="badge-tag tag-cyan">₹150 Eligible</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">7</span></td>
+                                    <td><strong>Aditya Pratap</strong></td>
+                                    <td>NSUT Delhi</td>
+                                    <td>Mechanical (4th Yr)</td>
+                                    <td><strong style="color:#fff;">14</strong> / 20</td>
+                                    <td>1.05x</td>
+                                    <td><span class="badge-tag tag-purple">Active Sprint</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">8</span></td>
+                                    <td><strong>Sneha Teja</strong></td>
+                                    <td>IIIT Hyderabad</td>
+                                    <td>CSE (4th Yr)</td>
+                                    <td><strong style="color:#fff;">12</strong> / 20</td>
+                                    <td>1.10x</td>
+                                    <td><span class="badge-tag tag-purple">Active Sprint</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Panel 3: WhatsApp Drip & Invite Simulator -->
+                <div class="sandbox-panel" id="tab-whatsapp">
+                    <div style="text-align:center; max-width:600px; margin:0 auto 20px auto;">
+                        <h3 style="font-size:1.15rem; color:#fff;">Interactive WhatsApp Automation Flow</h3>
+                        <p style="font-size:0.85rem; color:var(--text-secondary);">Students ignore email. WhatsApp automation provides instant ticket delivery, peer viral forwarding, and high live show-up rates.</p>
+                        
+                        <div class="wa-step-toggles">
+                            <button type="button" class="btn-wa-step active" data-step="1">1. Instant Ticket & QR Pass</button>
+                            <button type="button" class="btn-wa-step" data-step="2">2. Viral Group Invite Card</button>
+                            <button type="button" class="btn-wa-step" data-step="3">3. 1-Hour Urgency Ping</button>
+                        </div>
+                    </div>
+
+                    <div class="phone-mockup-wrapper">
+                        <div class="phone-mockup">
+                            <div class="phone-screen">
+                                <div class="wa-header">
+                                    <div class="wa-avatar">🤖</div>
+                                    <div class="wa-info">
+                                        <h4>NxtWave AI Workshop</h4>
+                                        <span>Official Verified Bot • Online</span>
+                                    </div>
+                                </div>
+                                <div class="wa-chat-body" id="waChatBody">
+                                    <!-- Dynamic chat messages injected via JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- FAQ Section -->
     <section class="faq-section" id="faq">
         <div class="section-container">
@@ -587,6 +929,66 @@
                 <span>Only <span id="stickySpots">127</span> spots left</span>
             </div>
             <a href="#register" class="btn-primary btn-small">Register Free</a>
+        </div>
+    </div>
+
+    <!-- Exclusive AI Starter Toolkit Modal (Unlocked at 3 Referrals) -->
+    <div class="toolkit-modal-overlay" id="toolkitModal">
+        <div class="toolkit-modal-content">
+            <button type="button" class="modal-close-btn" id="closeToolkitModal">&times;</button>
+            <div style="text-align:center; margin-bottom:20px;">
+                <span class="badge-tag tag-green">🎉 Unlocked Milestone Reward</span>
+                <h3 style="font-size:1.4rem; color:#fff; margin-top:8px;">Exclusive AI Placement Starter Toolkit</h3>
+                <p style="font-size:0.85rem; color:var(--text-secondary);">Curated for Final-Year Students • ₹0 Delivery Cost • 100% Placement Utility</p>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:16px;">
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(59,130,246,0.25); border-radius:var(--radius-md); padding:16px;">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                        <span style="font-size:1.2rem;">📘</span>
+                        <strong style="color:var(--accent-cyan); font-size:0.95rem;">1. Top 20 GenAI Placement Q&A Guide</strong>
+                    </div>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">
+                        Model answers to questions top recruiters ask: RAG architecture, Vector DB indexing, context window bottlenecks, and hallucinations.
+                    </p>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(59,130,246,0.25); border-radius:var(--radius-md); padding:16px;">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                        <span style="font-size:1.2rem;">⚡</span>
+                        <strong style="color:var(--accent-purple); font-size:0.95rem;">2. Developer Prompt Engineering Cheat Sheet</strong>
+                    </div>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">
+                        50+ battle-tested system prompts for automating unit tests, bug fixes, SQL schemas, and FastAPI boilerplate.
+                    </p>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(59,130,246,0.25); border-radius:var(--radius-md); padding:16px;">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                        <span style="font-size:1.2rem;">📄</span>
+                        <strong style="color:var(--accent-green); font-size:0.95rem;">3. ATS-Optimized AI Resume Blueprint</strong>
+                    </div>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">
+                        Google X-Y-Z formatted bullet points for AI projects that pass through campus hiring applicant tracking systems without getting filtered.
+                    </p>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(59,130,246,0.25); border-radius:var(--radius-md); padding:16px;">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                        <span style="font-size:1.2rem;">💻</span>
+                        <strong style="color:var(--accent-orange); font-size:0.95rem;">4. Workshop Google Colab Starter Repo</strong>
+                    </div>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">
+                        Ready-to-run Jupyter / Colab environment with Gemini API keys, Streamlit web deployment scripts, and sample datasets.
+                    </p>
+                </div>
+            </div>
+
+            <div style="margin-top:24px; text-align:center;">
+                <button type="button" class="btn-primary btn-glow btn-full" onclick="alert('Toolkit unlocked! Download link will be sent to your verified WhatsApp upon 3 referrals.')">
+                    <span>📥 Download Toolkit Package (.PDF)</span>
+                </button>
+            </div>
         </div>
     </div>
 

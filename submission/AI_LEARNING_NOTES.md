@@ -106,11 +106,12 @@ The final solution isn't just a page — it's a **self-propagating registration 
 
 ### 2. If I had another 24 hours, what would I improve?
 
-1. **WhatsApp Business API Bot** — Fully automated registration flow inside WhatsApp itself (no website needed for mobile users). Send reminders, referral updates, and workshop links directly in chat.
-2. **Ambassador Leaderboard Dashboard** — Real-time dashboard showing which ambassador has driven the most registrations. Creates competition and accountability.
-3. **"AI Career Score" Quiz** — A viral quiz that grades your AI readiness based on 5 questions. Low score? → "Fix it in 60 minutes — register for our free workshop." This becomes a standalone viral hook.
-4. **A/B Testing** — Test headline variations ("Build Your First AI Project" vs "Add AI to Your Resume Today"), CTA button colors, and social proof messaging.
-5. **Backend API** — Connect to a real database (Supabase/Firebase) so referral tracking persists across devices and the registration data can be exported.
+Because I already went ahead and built the **Interactive AI Project Matcher**, the **Campus Ambassador Leaderboard**, and the **WhatsApp Drip Simulator** directly into the working asset, with another 24 hours I would scale it from interactive prototype to production infrastructure:
+
+1. **Live WhatsApp Cloud API & Webhooks**: Connect the front-end simulation to Meta's WhatsApp Cloud API (or Twilio) so real WhatsApp confirmation cards and QR tickets are pinged to registrant phones in real-time.
+2. **Automated AI Project Evaluation & GitHub Webhook**: Deploy a serverless worker that integrates with GitHub Classroom/Actions during the workshop to automatically evaluate students' pushed commits and issue verified certificates within 60 seconds of completion.
+3. **Persistent Supabase / Firebase Backend**: Hook the unique referral links (`?ref=...`) into a Postgres database with cookie/IP fingerprinting to prevent self-referrals and provide a live public dashboard.
+4. **Dynamic A/B Testing Engine**: Implement a multi-armed bandit algorithm (via PostHog) that tests hero copy variants: *"Build Your First AI Project"* vs *"Add an ATS GenAI Project to Your Resume Tonight"*.
 
 ### 3. What did AI suggest that I deliberately rejected, and why?
 

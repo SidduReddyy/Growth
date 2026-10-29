@@ -622,6 +622,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initForm();
     initSmoothScroll();
     checkReferralCode();
+    initProjectMatcher();
+    initGrowthSandbox();
+    initWhatsAppSimulator();
+    initToolkitModal();
 
     // Counter animation (trigger on first view)
     const heroObserver = new IntersectionObserver((entries) => {
@@ -637,8 +641,643 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroStats) heroObserver.observe(heroStats);
 });
 
-// Make share functions global
+// ==========================================
+// 1. INTERACTIVE AI PROJECT MATCHER
+// ==========================================
+const PROJECT_DATABASE = {
+    CSE: {
+        SWE: {
+            title: "Smart Campus Placement Chatbot with RAG & Gemini 1.5",
+            branchBadge: "CSE / IT",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Zero Prerequisites",
+            input: "College Placement Papers / PDFs",
+            model: "Gemini 1.5 Flash + FAISS Vector DB",
+            framework: "Python + Streamlit Full-Stack",
+            deploy: "Shareable Live Web App",
+            bullet: "Engineered and deployed an interactive Generative AI query assistant using Python, Gemini 1.5 Flash, and Streamlit in under 60 minutes, enabling sub-200ms document question-answering with verifiable GitHub source code.",
+            code: `# ⚡ CSE / IT Workshop Scaffold
+import google.generativeai as genai
+import streamlit as st
+
+st.set_page_config(page_title="AI Placement Assistant", page_icon="🤖")
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+model = genai.GenerativeModel("gemini-1.5-flash")
+
+user_input = st.text_input("Ask anything about placements or technical questions:")
+if user_input:
+    response = model.generate_content(user_input)
+    st.write(response.text)`
+        },
+        DATA: {
+            title: "Automated Code Vulnerability & Bug Diagnostic Agent",
+            branchBadge: "CSE / Data",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Beginner Friendly",
+            input: "Raw Code Snippets (Python/Java/C++)",
+            model: "Gemini Code Assist + AST Parser",
+            framework: "FastAPI + Streamlit GUI",
+            deploy: "Automated Review Dashboard",
+            bullet: "Built a real-time code vulnerability scanner utilizing Gemini LLM and Python AST parsers, automatically detecting security anti-patterns and generating unit test fixes in seconds.",
+            code: `# Automated Code Diagnostic Agent
+import google.generativeai as genai
+
+def audit_code(snippet):
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    prompt = f"Analyze for security vulnerabilities and output fixes:\n{snippet}"
+    return model.generate_content(prompt).text`
+        },
+        CORE: {
+            title: "High-Throughput Semantic Cache Engine for LLMs",
+            branchBadge: "CSE / Systems",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Intermediate",
+            input: "User Prompt Stream",
+            model: "SentenceTransformers + Cosine Similarity",
+            framework: "Redis + Python In-Memory",
+            deploy: "Low-Latency Cache Proxy",
+            bullet: "Constructed an in-memory semantic cache using vector embeddings and Python, reducing duplicate LLM API costs by 68% and accelerating response latency to under 30ms.",
+            code: `# Semantic LLM Cache
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
+encoder = SentenceTransformer('all-MiniLM-L6-v2')
+cache = {}  # {embedding: response}`
+        },
+        PROD: {
+            title: "AI Product Requirements Document (PRD) & Schema Generator",
+            branchBadge: "CSE / Product",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Zero Prerequisites",
+            input: "Rough Product Idea Voice/Text",
+            model: "Gemini 1.5 Structured JSON Mode",
+            framework: "Python + Mermaid Diagram Engine",
+            deploy: "Exportable Markdown PRD",
+            bullet: "Designed an automated PRD generation system translating natural language product ideas into architecture diagrams and database schemas with 100% structured JSON compliance.",
+            code: `# PRD Generator Scaffold
+import google.generativeai as genai
+model = genai.GenerativeModel("gemini-1.5-flash")
+res = model.generate_content("Generate ER diagram & DB schema in Mermaid for Food Delivery app")`
+        }
+    },
+    ECE: {
+        SWE: {
+            title: "Edge-AI Audio Noise Suppressor & Speech Classifier",
+            branchBadge: "ECE / Signals",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Hands-on",
+            input: "Mic Audio Signal (WAV)",
+            model: "Spectral FFT + Lightweight CNN",
+            framework: "PyTorch Mobile + WebAssembly",
+            deploy: "Browser Edge Audio Filter",
+            bullet: "Implemented a real-time audio noise suppression model leveraging Fourier Transform features and lightweight CNNs, achieving 91% speech clarity enhancement on low-compute edge devices.",
+            code: `# Audio Signal Processing Scaffold
+import librosa
+import numpy as np
+
+def extract_features(audio_path):
+    y, sr = librosa.load(audio_path)
+    return np.mean(librosa.feature.mfcc(y=y, sr=sr).T, axis=0)`
+        },
+        DATA: {
+            title: "RF Signal Anomaly & Modulation Classifier",
+            branchBadge: "ECE / Comms",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Beginner Friendly",
+            input: "I/Q Time-Series Signal Packets",
+            model: "1D-ResNet + Scikit-Learn",
+            framework: "Python + Matplotlib Live Plot",
+            deploy: "RF Spectrum Visualizer",
+            bullet: "Developed an RF modulation recognition model classifying QAM/PSK signal transmissions with 93% accuracy under variable signal-to-noise ratio (SNR) conditions.",
+            code: `# RF Signal Anomaly Detector
+import numpy as np
+from sklearn.ensemble import IsolationForest
+
+def detect_rf_anomaly(iq_samples):
+    clf = IsolationForest(contamination=0.05)
+    return clf.fit_predict(iq_samples)`
+        },
+        CORE: {
+            title: "Smart IoT Vision Anomaly Sorter for Embedded Boards",
+            branchBadge: "ECE / Embedded",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Core Hardware",
+            input: "ESP32-CAM Video Stream",
+            model: "TinyML MobileNetV2 (Quantized INT8)",
+            framework: "TensorFlow Lite + OpenCV",
+            deploy: "Edge Controller Trigger",
+            bullet: "Deployed an INT8-quantized TinyML object classifier on simulated embedded hardware, processing 15 FPS image classification at under 2W total power consumption.",
+            code: `# TinyML TFLite Inference
+import tflite_runtime.interpreter as tflite
+interpreter = tflite.Interpreter(model_path="tinyml_model.tflite")
+interpreter.allocate_tensors()`
+        },
+        PROD: {
+            title: "Telecommunication Cell Tower Failure Forecaster",
+            branchBadge: "ECE / Systems",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Beginner Friendly",
+            input: "Telemetry Logs & Packet Loss",
+            model: "XGBoost + Gemini Diagnostic Bot",
+            framework: "Python Streamlit",
+            deploy: "Ops Command Dashboard",
+            bullet: "Engineered a predictive maintenance copilot for telecom cell towers, forecasting transmission degradation 6 hours prior to outage with automated recovery recommendations.",
+            code: `# Telemetry Failure Predictor
+import xgboost as xgb
+# Predict tower outage probability from SNR & packet drops`
+        }
+    },
+    EEE: {
+        SWE: {
+            title: "Smart Grid Renewable Load Demand Forecaster",
+            branchBadge: "EEE / Energy",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Hands-on",
+            input: "Solar/Wind Smart Meter Telemetry",
+            model: "Temporal Fusion Transformer / LSTM",
+            framework: "Python + Plotly",
+            deploy: "Grid Load Simulator",
+            bullet: "Built a deep learning solar energy production forecaster analyzing weather covariates to predict peak substation loads with <4.2% mean absolute percentage error.",
+            code: `# Solar Demand Prediction
+import pandas as pd
+from sklearn.linear_model import Ridge
+# Train regression model on solar irradiance & smart meter load`
+        },
+        DATA: {
+            title: "Electric Vehicle (EV) Battery State-of-Health Predictor",
+            branchBadge: "EEE / EV Tech",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Placement Ready",
+            input: "Lithium-Ion Voltage & Thermal Cycles",
+            model: "RandomForest Regressor + SHAP",
+            framework: "Python + Dash",
+            deploy: "BMS Battery Telemetry UI",
+            bullet: "Created an EV battery State of Health (SoH) degradation predictor using cyclic voltammetry data, accurately estimating remaining useful life within a 50-cycle confidence interval.",
+            code: `# Battery Health Estimator
+import numpy as np
+def predict_battery_soh(voltage, current, temp):
+    return 100 - (0.05 * voltage + 0.1 * temp)`
+        },
+        CORE: {
+            title: "Induction Motor Harmonic Distortion & Fault Detector",
+            branchBadge: "EEE / Drives",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Core Electrical",
+            input: "3-Phase Current Waveforms",
+            model: "FFT Harmonic Analysis + Isolation Forest",
+            framework: "Scipy + Streamlit",
+            deploy: "Substation Monitoring Hub",
+            bullet: "Engineered a 3-phase induction motor fault detector detecting rotor bar defects and Total Harmonic Distortion (THD) via real-time stator current analysis.",
+            code: `# Stator Current FFT Analysis
+from scipy.fft import fft
+# Compute THD and detect stator current imbalance`
+        },
+        PROD: {
+            title: "Industrial Microgrid Carbon & Energy Cost Optimizer",
+            branchBadge: "EEE / Power",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Zero Prerequisites",
+            input: "Real-Time Tariff & Generation Feeds",
+            model: "Linear Optimization (PuLP) + Gemini Explainer",
+            framework: "Python + Streamlit",
+            deploy: "Energy Trading Copilot",
+            bullet: "Formulated an energy dispatch optimizer for commercial microgrids, balancing solar storage versus grid draw to cut facility power costs by 18%.",
+            code: `# Microgrid Cost Optimization Model
+import pulp
+# Optimize battery discharge vs grid buy tariff`
+        }
+    },
+    ME: {
+        SWE: {
+            title: "CAD Model 3D Geometry Classifier & Feature Extractor",
+            branchBadge: "Mechanical / CAD",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Cutting-Edge",
+            input: "STL / OBJ 3D Meshes",
+            model: "PointNet 3D Neural Architecture",
+            framework: "Open3D + PyTorch",
+            deploy: "3D Part Search Portal",
+            bullet: "Developed a 3D CAD mesh retrieval engine using PointNet representations, enabling mechanical engineers to search inventory by 3D geometric similarity in under 1 second.",
+            code: `# 3D Mesh Feature Extractor
+import open3d as o3d
+# Load STL part and extract point cloud coordinates`
+        },
+        DATA: {
+            title: "CNC Tool Wear & Predictive Maintenance AI",
+            branchBadge: "Mechanical / Manufacturing",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ High Placement Value",
+            input: "Spindle Vibration & Acoustic Emission",
+            model: "LightGBM + Statistical Features",
+            framework: "Python + Altair",
+            deploy: "Shopfloor Machine Monitor",
+            bullet: "Implemented a CNC machine tool wear prognostic model analyzing accelerometer vibration data, alerting operators 45 minutes prior to tool fracture.",
+            code: `# Tool Wear Predictive Model
+import lightgbm as lgb
+# Predict remaining tool life in machining minutes`
+        },
+        CORE: {
+            title: "Robotic Arm Inverse Kinematics Path Planner with AI",
+            branchBadge: "Mechanical / Robotics",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Robotics Core",
+            input: "Target End-Effector 3D Coordinate",
+            model: "Deep Q-Learning / Neural Inverse Kinematics",
+            framework: "PyBullet + NumPy",
+            deploy: "Real-Time Simulation Sandbox",
+            bullet: "Created an autonomous 6-DOF robotic manipulator path planner avoiding dynamic obstacles using neural inverse kinematics with <2mm positioning error.",
+            code: `# Robotic Arm Kinematics
+import numpy as np
+# Calculate joint angles for end-effector trajectory`
+        },
+        PROD: {
+            title: "Smart Manufacturing Supply Chain Anomaly Copilot",
+            branchBadge: "Mechanical / Operations",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Zero Prerequisites",
+            input: "Vendor Lead Times & Bill of Materials (BOM)",
+            model: "Gemini 1.5 + Heuristic Optimization",
+            framework: "Python Streamlit",
+            deploy: "Executive Assembly Dashboard",
+            bullet: "Built an assembly line bottleneck forecaster that identifies critical part delivery risks across complex BOM hierarchies, saving 12+ hours of manual weekly audit.",
+            code: `# Supply Chain Risk Analyzer
+import google.generativeai as genai
+# Analyze BOM delivery delays and suggest alternate suppliers`
+        }
+    },
+    CE: {
+        SWE: {
+            title: "Drone Survey Concrete Crack & Pavement Defect Segmenter",
+            branchBadge: "Civil / Infrastructure",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ High Impact",
+            input: "High-Res Infrastructure Photos / Video",
+            model: "YOLOv8 + Semantic Segmentation",
+            framework: "Ultralytics + OpenCV",
+            deploy: "Structural Audit Web Portal",
+            bullet: "Engineered a computer vision crack detector for bridges and highways using YOLOv8, isolating concrete fissures down to 0.5mm with 89% precision.",
+            code: `# Concrete Defect Detection
+from ultralytics import YOLO
+model = YOLO('yolov8n-seg.pt')
+# Predict crack mask coordinates on concrete surface`
+        },
+        DATA: {
+            title: "Concrete 28-Day Compressive Strength Predictor",
+            branchBadge: "Civil / Materials",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Lab-Ready",
+            input: "Cement, Water, Aggregate & Fly Ash Mix Ratios",
+            model: "Gradient Boosting + Polynomial Regression",
+            framework: "Scikit-Learn + Streamlit",
+            deploy: "Mix Design Calculator",
+            bullet: "Constructed an ML mix-design simulator predicting 28-day concrete compressive strength (MPa) with R² = 0.94, optimizing cement consumption and reducing testing delays.",
+            code: `# Concrete Strength Predictor
+from sklearn.ensemble import GradientBoostingRegressor
+# Estimate MPa strength based on water-cement ratio`
+        },
+        CORE: {
+            title: "Smart Urban Traffic Intersection Congestion Controller",
+            branchBadge: "Civil / Transportation",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Smart City",
+            input: "Intersection CCTV Camera Feeds",
+            model: "Vehicle Density Tracker + Dynamic Timing Algorithm",
+            framework: "OpenCV + Python",
+            deploy: "Traffic Signal Automation Sim",
+            bullet: "Designed an intelligent traffic light control system utilizing real-time vehicle density counts, reducing simulated junction wait times by 26%.",
+            code: `# Traffic Flow Signal Optimization
+import cv2
+# Detect vehicle queue length and dynamically allocate green signal`
+        },
+        PROD: {
+            title: "Earthquake Structural Resilience & Code Compliance Copilot",
+            branchBadge: "Civil / Structural",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Zero Prerequisites",
+            input: "Building Dimensions & Soil Seismic Zone",
+            model: "Gemini 1.5 + IS 1893 Seismic Standards",
+            framework: "Python + Markdown Report",
+            deploy: "Safety Compliance Generator",
+            bullet: "Built an automated structural code compliance auditor benchmarking building designs against Indian Seismic Standards (IS 1893) with instant mitigation recommendations.",
+            code: `# Seismic Compliance Checker
+# Validates base shear and lateral drift against IS 1893 code`
+        }
+    },
+    "AI/ML": {
+        SWE: {
+            title: "Self-Hosted Autonomous Research & Coding Agent",
+            branchBadge: "AI & Data Science",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Advanced",
+            input: "Technical Research Topic or GitHub URL",
+            model: "LangGraph + Gemini 1.5 Flash Tools",
+            framework: "Python + FastAPI",
+            deploy: "Autonomous Web Agent",
+            bullet: "Architected a multi-step AI research agent with recursive web search and automated synthesis using LangGraph, producing citations and executable code scripts in under 45 seconds.",
+            code: `# LangGraph Autonomous Agent
+import google.generativeai as genai
+# Multi-turn tool calling and code execution workflow`
+        },
+        DATA: {
+            title: "AutoML Pipeline with Dynamic SHAP Explainability",
+            branchBadge: "AI & Data Science",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Placement Gold",
+            input: "Any CSV Dataset (Finance, Health, Tech)",
+            model: "LightGBM + Optuna Hyperparameter Tuning",
+            framework: "Streamlit + SHAP Visuals",
+            deploy: "1-Click AutoML Web Platform",
+            bullet: "Engineered an end-to-end automated machine learning pipeline with Bayesian hyperparameter tuning and SHAP feature attribution, reducing model delivery from days to minutes.",
+            code: `# AutoML Explainability Engine
+import shap
+import lightgbm as lgb
+# Auto-tune classification model and plot SHAP waterfall`
+        },
+        CORE: {
+            title: "Quantized Local Small Language Model (SLM) on CPU",
+            branchBadge: "AI & Systems",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Edge AI",
+            input: "User Query (Offline)",
+            model: "Llama-3.2 / Phi-3 (4-bit GGUF)",
+            framework: "Llama-cpp-python",
+            deploy: "Zero-Cloud Offline Desktop App",
+            bullet: "Deployed a 4-bit quantized Small Language Model (SLM) executing 18 tokens/sec on standard laptop CPUs without GPU dependencies or cloud API costs.",
+            code: `# Local 4-bit SLM Runner
+from llama_cpp import Llama
+llm = Llama(model_path="phi-3-mini-4k-instruct.Q4_K_M.gguf")
+output = llm("Q: Explain gradient descent in 20 words. A:")`
+        },
+        PROD: {
+            title: "Enterprise RAG Evaluation & Hallucination Guardrail",
+            branchBadge: "AI / Governance",
+            duration: "⏱️ 60 Mins Live",
+            level: "✅ Industry Standard",
+            input: "LLM Generated Response + Context Chunks",
+            model: "Ragas Metric Scorer + Gemini Verifier",
+            framework: "Python + Streamlit",
+            deploy: "Production Trust & Safety Portal",
+            bullet: "Formulated an automated RAG evaluation framework measuring factual precision and context recall, intercepting hallucinations with 96% accuracy before user delivery.",
+            code: `# RAG Hallucination Guardrail
+# Calculate faithfulness and answer relevancy metrics`
+        }
+    }
+};
+
+let selectedBranch = 'CSE';
+let selectedRole = 'SWE';
+
+function initProjectMatcher() {
+    const branchPills = document.querySelectorAll('#branchPills .matcher-pill');
+    const rolePills = document.querySelectorAll('#rolePills .matcher-pill');
+    const generateBtn = document.getElementById('generateProjectBtn');
+    const copyBulletBtn = document.getElementById('copyBulletBtn');
+    const matchRegisterCta = document.getElementById('matchRegisterCta');
+
+    branchPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            branchPills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            selectedBranch = pill.dataset.branch;
+            updateProjectMatcherDisplay();
+        });
+    });
+
+    rolePills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            rolePills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            selectedRole = pill.dataset.role;
+            updateProjectMatcherDisplay();
+        });
+    });
+
+    if (generateBtn) {
+        generateBtn.addEventListener('click', () => {
+            generateBtn.innerHTML = `<span>⚡ Matching Best Placement Project...</span>`;
+            setTimeout(() => {
+                updateProjectMatcherDisplay();
+                generateBtn.innerHTML = `<span>✨ Project Blueprint Matched! Click Below to Build</span>`;
+                const result = document.getElementById('matcherResult');
+                if (result) result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 400);
+        });
+    }
+
+    if (copyBulletBtn) {
+        copyBulletBtn.addEventListener('click', () => {
+            const bulletText = document.getElementById('resumeBulletText')?.textContent.trim() || '';
+            navigator.clipboard.writeText(bulletText).then(() => {
+                copyBulletBtn.textContent = '✅ Copied to Clipboard!';
+                setTimeout(() => { copyBulletBtn.textContent = '📋 Copy Bullet'; }, 2000);
+            });
+        });
+    }
+
+    if (matchRegisterCta) {
+        matchRegisterCta.addEventListener('click', () => {
+            const branchSelect = document.getElementById('branch');
+            if (branchSelect) {
+                // Select branch in registration form
+                branchSelect.value = selectedBranch;
+            }
+        });
+    }
+
+    updateProjectMatcherDisplay();
+}
+
+function updateProjectMatcherDisplay() {
+    const branchData = PROJECT_DATABASE[selectedBranch] || PROJECT_DATABASE['CSE'];
+    const project = branchData[selectedRole] || branchData['SWE'];
+
+    const titleEl = document.getElementById('projectTitle');
+    const branchBadge = document.getElementById('projectBranchBadge');
+    const durationBadge = document.getElementById('projectDurationBadge');
+    const levelBadge = document.getElementById('projectLevelBadge');
+    const nodeInput = document.getElementById('nodeInput');
+    const nodeModel = document.getElementById('nodeModel');
+    const nodeFramework = document.getElementById('nodeFramework');
+    const nodeDeploy = document.getElementById('nodeDeploy');
+    const bulletText = document.getElementById('resumeBulletText');
+    const codeSnippet = document.getElementById('codeSnippetContent');
+
+    if (titleEl) titleEl.textContent = project.title;
+    if (branchBadge) branchBadge.textContent = project.branchBadge;
+    if (durationBadge) durationBadge.textContent = project.duration;
+    if (levelBadge) levelBadge.textContent = project.level;
+    if (nodeInput) nodeInput.textContent = project.input;
+    if (nodeModel) nodeModel.textContent = project.model;
+    if (nodeFramework) nodeFramework.textContent = project.framework;
+    if (nodeDeploy) nodeDeploy.textContent = project.deploy;
+    if (bulletText) bulletText.textContent = project.bullet;
+    if (codeSnippet) codeSnippet.textContent = project.code;
+}
+
+// ==========================================
+// 2. VIRAL GROWTH & REFERRAL SANDBOX
+// ==========================================
+let simReferralCount = 0;
+
+function initGrowthSandbox() {
+    const tabs = document.querySelectorAll('.sandbox-tab');
+    const panels = document.querySelectorAll('.sandbox-panel');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
+
+            tab.classList.add('active');
+            const target = document.getElementById(tab.dataset.tab);
+            if (target) target.classList.add('active');
+        });
+    });
+
+    const plusOne = document.getElementById('btnSimPlusOne');
+    const plusTwo = document.getElementById('btnSimPlusTwo');
+    const reset = document.getElementById('btnSimReset');
+
+    if (plusOne) plusOne.addEventListener('click', () => simulateReferral(1));
+    if (plusTwo) plusTwo.addEventListener('click', () => simulateReferral(2));
+    if (reset) reset.addEventListener('click', resetReferralSimulation);
+
+    updateReferralSimUI();
+}
+
+function simulateReferral(amount) {
+    simReferralCount = Math.min(3, simReferralCount + amount);
+    updateReferralSimUI();
+
+    if (simReferralCount === 3) {
+        createConfetti();
+        setTimeout(() => {
+            const modal = document.getElementById('toolkitModal');
+            if (modal) modal.style.display = 'flex';
+        }, 500);
+    }
+}
+
+function resetReferralSimulation() {
+    simReferralCount = 0;
+    updateReferralSimUI();
+}
+
+function updateReferralSimUI() {
+    const counterText = document.getElementById('simCounterText');
+    const fill = document.getElementById('simProgressFill');
+    const m1 = document.getElementById('simMilestone1');
+    const m2 = document.getElementById('simMilestone2');
+    const m3 = document.getElementById('simMilestone3');
+
+    if (counterText) counterText.textContent = `${simReferralCount} / 3 Friends Registered`;
+    const pct = (simReferralCount / 3) * 100;
+    if (fill) fill.style.width = `${pct}%`;
+
+    if (m1) {
+        m1.style.color = simReferralCount >= 1 ? '#34d399' : 'var(--text-muted)';
+        m1.querySelector('span').textContent = simReferralCount >= 1 ? '✅' : '🔓';
+    }
+    if (m2) {
+        m2.style.color = simReferralCount >= 2 ? '#34d399' : 'var(--text-muted)';
+        m2.querySelector('span').textContent = simReferralCount >= 2 ? '✅' : '🔓';
+    }
+    if (m3) {
+        m3.style.color = simReferralCount >= 3 ? '#f59e0b' : 'var(--text-muted)';
+        m3.querySelector('span').textContent = simReferralCount >= 3 ? '🎉' : '🎁';
+    }
+}
+
+function copySimCode() {
+    const input = document.getElementById('simReferralCode');
+    const btn = document.getElementById('simCopyBtn');
+    if (input) {
+        navigator.clipboard.writeText(input.value).then(() => {
+            if (btn) btn.textContent = '✅ Copied!';
+            setTimeout(() => { if (btn) btn.textContent = '📋 Copy'; }, 2000);
+        });
+    }
+}
+
+// ==========================================
+// 3. WHATSAPP DRIP & INVITE SIMULATOR
+// ==========================================
+const WA_MESSAGES = {
+    1: [
+        { type: 'received', text: `🎉 <strong>Registration Confirmed!</strong><br><br>Hey Siddu! You're booked for <em>"Build Your First AI Project in 60 Minutes"</em>.<br><br>📅 <strong>Date:</strong> This Saturday, 6:00 PM IST<br>🎟️ <strong>Ticket ID:</strong> #NW-AI-84920<br>🔗 <strong>Direct Room Link:</strong> nxtwave.co/live/ai-60<br><br>💡 <em>Save this contact for live reminder pings.</em>`, time: '10:14 AM' },
+        { type: 'received', text: `🎁 <strong>Unlock Your AI Placement Kit:</strong><br>Share your private referral pass with 3 batchmates to unlock the 50+ AI Interview Questions Blueprint!<br><br>Your Link: nxtwave.co/r/NW-SIDDU-89`, time: '10:15 AM' }
+    ],
+    2: [
+        { type: 'sent', text: `🚀 Guys! Just registered for NxtWave's FREE live workshop: <strong>"Build Your First AI Project in 60 Minutes"</strong>.<br><br>✅ We actually code & deploy an AI model live<br>✅ Verified certificate for LinkedIn & resume<br>✅ Completely free (usually ₹1,999)<br><br>Spots are capped at 500. Register with my link here:<br>👉 nxtwave.co/r/NW-SIDDU-89`, time: '11:30 AM' },
+        { type: 'received', text: `💬 <em>(Forwarded across 8 college WhatsApp groups: JNTU CSE-A, Hostel Block 4, Placement Prep 2026...)</em>`, time: '11:32 AM' },
+        { type: 'received', text: `🔥 <strong>+1 Referral Verified!</strong> Rahul Verma registered using your code! (1/3 unlocked)`, time: '11:45 AM' }
+    ],
+    3: [
+        { type: 'received', text: `⏰ <strong>STARTING IN 1 HOUR!</strong><br><br>Hey Siddu, your workstation is ready! Zero installations required—everything runs right inside Google Colab.<br><br>💻 <strong>Click to Enter Live Workshop:</strong><br>👉 nxtwave.co/live/join-now<br><br>See you on screen! 🚀`, time: '5:00 PM' }
+    ]
+};
+
+function initWhatsAppSimulator() {
+    const stepBtns = document.querySelectorAll('.btn-wa-step');
+    stepBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            stepBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderWhatsAppStep(parseInt(btn.dataset.step, 10));
+        });
+    });
+    renderWhatsAppStep(1);
+}
+
+function renderWhatsAppStep(step) {
+    const chatBody = document.getElementById('waChatBody');
+    if (!chatBody) return;
+
+    const msgs = WA_MESSAGES[step] || WA_MESSAGES[1];
+    chatBody.innerHTML = '';
+
+    msgs.forEach((m, idx) => {
+        const bubble = document.createElement('div');
+        bubble.className = `wa-bubble ${m.type === 'sent' ? 'wa-sent' : 'wa-received'}`;
+        bubble.innerHTML = `
+            <div>${m.text}</div>
+            <div class="wa-time">${m.time} ${m.type === 'sent' ? '✓✓' : ''}</div>
+        `;
+        chatBody.appendChild(bubble);
+    });
+}
+
+// ==========================================
+// 4. TOOLKIT MODAL
+// ==========================================
+function initToolkitModal() {
+    const openBtn = document.getElementById('btnViewToolkit');
+    const closeBtn = document.getElementById('closeToolkitModal');
+    const modal = document.getElementById('toolkitModal');
+
+    if (openBtn && modal) {
+        openBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+    }
+
+    if (closeBtn && modal) {
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    }
+
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        });
+    }
+}
+
+// Make functions global
+window.copySimCode = copySimCode;
 window.copyReferralLink = copyReferralLink;
 window.shareWhatsApp = shareWhatsApp;
 window.shareTelegram = shareTelegram;
 window.shareLinkedIn = shareLinkedIn;
+
